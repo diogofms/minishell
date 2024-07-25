@@ -11,4 +11,5 @@ int	pwd(int fd)
 		return (buffer);
 	else
 		printf("\n%s\n", buffer);
+	return (0);
 }

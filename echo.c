@@ -7,6 +7,7 @@ void	echo(char **args, int fd)
 	int		j;
 	int		extra_line;
 	char	*str;
+	char	**env_;
 
 	extra_line = 1;
 	i = 1;
@@ -19,13 +20,20 @@ void	echo(char **args, int fd)
 	while (args[i] != 0)
 	{
 		if (ft_strcmp(args[i], "pwd") == 1)
-			str = pwd(3);
+			write (fd, pwd(3), ft_strlen(pwd(3)));
+		else if (ft_strcmp(args[i], "env") == 1)
+		{
+			env_ = env();
+			j = 0;
+			while (env_[j] != NULL)
+			{
+				write (fd, env_[j], ft_strlen(env_[j]));
+				j++;
+			}
+		}
 		else
 		{
-			j = 0;
-			while (args[i][j] != 0)
-				j++;
-			write (fd, args[i], j);
+			write (fd, args[i], ft_strlen(args[i]));
 			if (args[i + 1] != 0)
 				write (fd, " ", 1);
 		}
