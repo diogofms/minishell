@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: disilva <disilva@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/01 17:59:30 by disilva           #+#    #+#             */
+/*   Updated: 2024/08/01 17:59:30 by disilva          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include "builtins.h"
 
-void	echo_export(int fd, env_list_t *head)
+void	echo_export(int fd, t_env_list *head)
 {
 	while (head->next != NULL)
 	{
@@ -12,7 +24,7 @@ void	echo_export(int fd, env_list_t *head)
 	}
 }
 
-void	echo(char **args, int fd, env_list_t *head)
+void	echo(char **args, int fd, t_env_list *head)
 {
 	int		i;
 	int		j;
