@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: disilva <disilva@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/01 17:58:49 by disilva           #+#    #+#             */
+/*   Updated: 2024/08/01 18:05:27 by disilva          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <unistd.h>
 #include <dirent.h>
@@ -36,17 +48,17 @@ int	malloc_fail(void *str, char *error)
 	return (0);
 }
 
-int	add_node(env_list_t **tail, int size)
+int	add_node(t_env_list **tail, int size)
 {
-	*tail = malloc(sizeof(env_list_t));
-	if (malloc_fail(*tail,  strerror(errno)) == 1)
-		return(1);
+	*tail = malloc(sizeof(t_env_list));
+	if (malloc_fail(*tail, strerror(errno)) == 1)
+		return (1);
 	(*tail)->content = malloc(size + 1);
-	if (malloc_fail((*tail)->content,  strerror(errno)) == 1)
+	if (malloc_fail((*tail)->content, strerror(errno)) == 1)
 	{
 		free (*tail);
 		*tail = NULL;
-		return(1);
+		return (1);
 	}
 	(*tail)->next = NULL;
 	return (0);

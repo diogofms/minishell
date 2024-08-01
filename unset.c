@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: disilva <disilva@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/01 17:58:56 by disilva           #+#    #+#             */
+/*   Updated: 2024/08/01 18:04:49 by disilva          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "builtins.h"
 #include <unistd.h>
 
-env_list_t	*unset(char **args, env_list_t *head)
+t_env_list	*unset(char **args, t_env_list *head)
 {
 	int			i;
 	int			j;
-	env_list_t	*prev;
-	env_list_t	*node;
+	t_env_list	*prev;
+	t_env_list	*node;
 
 	prev = head;
 	node = head;
@@ -19,7 +31,7 @@ env_list_t	*unset(char **args, env_list_t *head)
 			while (node->content[j] != '=')
 			{
 				if (node->content[j] != args[i][j])
-					break;
+					break ;
 				j++;
 			}
 			if (node->content[j] == '=')
