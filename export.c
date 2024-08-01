@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: disilva <disilva@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/01 17:59:11 by disilva           #+#    #+#             */
+/*   Updated: 2024/08/01 18:04:40 by disilva          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include <stdio.h>
 #include <errno.h>
@@ -15,7 +27,7 @@ int	env_cmp(char *current_env, char *new_env)
 	return (0);
 }
 
-int	export(char **args, env_list_t *head, int fd)
+int	export(char **args, t_env_list *head, int fd)
 {
 	int		i;
 	char	*new_var;
@@ -36,8 +48,8 @@ int	export(char **args, env_list_t *head, int fd)
 		while (args[i] != NULL)
 		{
 			new_var = malloc(strlen (args[i], '=') + 1);
-			if (malloc_fail(new_var,  strerror(errno)) == 1)
-				return(1);
+			if (malloc_fail(new_var, strerror(errno)) == 1)
+				return (1);
 			str_cpy(args[i], &new_var, '=');
 			while (head->next != NULL)
 			{
@@ -45,17 +57,17 @@ int	export(char **args, env_list_t *head, int fd)
 				{
 					free (head->content);
 					head->content = malloc(ft_strlen(args[i], 0) + 1);
-					if (malloc_fail(head->content,  strerror(errno)) == 1)
-						return(1);
-					break;
+					if (malloc_fail(head->content, strerror(errno)) == 1)
+						return (1);
+					break ;
 				}
 				head = head->next;
 			}
 			if (head->next == NULL)
 			{
-				if (add_node(&(head->next), ft_strlen(args[i], 0)) == 1);
+				if (add_node(&(head->next), ft_strlen(args[i], 0)) == 1)
 					return (1);
-			}	
+			}
 			str_cpy(args[i], &head->content, 0);
 		}
 	}
