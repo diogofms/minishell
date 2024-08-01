@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: disilva <disilva@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/01 17:59:16 by disilva           #+#    #+#             */
+/*   Updated: 2024/08/01 18:04:02 by disilva          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include <stdio.h>
 
@@ -10,18 +22,18 @@ void	exit(char **arg)
 	else if (arg[1] != 0)
 	{
 		i = 0;
-		while(arg[1][i] != 0)
+		while (arg[1][i] != 0)
 		{
 			if (arg[1][i] < '0' && arg[1][i] > '9')
 			{
 				printf("exit: %s: numeric argument required\n", arg[1]);
-				break;
+				break ;
 			}
 			i++;
 		}
 		//call free memory function.
 		exit (arg[1]);
-	}	
+	}
 	else
 	{
 		//call free memory function.

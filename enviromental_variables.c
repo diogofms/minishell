@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   enviromental_variables.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: disilva <disilva@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/01 17:59:20 by disilva           #+#    #+#             */
+/*   Updated: 2024/08/01 18:03:45 by disilva          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include <stdio.h>
 #include <errno.h>
 #include "builtins.h"
 
-void ft_free_list(env_list_t *head)
+void	ft_free_list(t_env_list *head)
 {
-	env_list_t *next;
+	t_env_list	*next;
 
 	if (head == NULL)
 		return (0);
@@ -22,13 +34,13 @@ void ft_free_list(env_list_t *head)
 	return (0);
 }
 
-env_list_t	*ft_envp(char **envp, env_list_t *head)
+t_env_list	*ft_envp(char **envp, t_env_list *head)
 {
-	env_list_t	*current;
+	t_env_list	*current;
 	int			j;
 	int			k;
 
-	head = malloc(sizeof(env_list_t));
+	head = malloc(sizeof(t_env_list));
 	if (head == NULL)
 	{
 		printf("%s\n", strerror(errno));
@@ -58,7 +70,7 @@ env_list_t	*ft_envp(char **envp, env_list_t *head)
 		k++;
 		if (envp[k] != NULL)
 		{
-			current->next = malloc(sizeof(env_list_t));
+			current->next = malloc(sizeof(t_env_list));
 			if (current->next == NULL)
 			{
 				printf("%s\n", strerror(errno));
