@@ -1,15 +1,14 @@
 #include <unistd.h>
 #include <stdio.h>
+#include <errno.h>
 
-int	pwd(int fd)
+void	pwd(int fd)
 {
 	char buffer[4096];
 
 	if (getcwd(buffer, 4096) == NULL)
-		write(2, "error getting the directory\n", 28);
-	else if (fd > 2)
-		return (buffer);
+		write (fd, strerror(errno), ft_strlen(strerror(errno)));
 	else
-		printf("\n%s\n", buffer);
-	return (0);
+		write (fd, buffer, ft_strlen(buffer));
+	write (fd, "\n", 1);
 }
