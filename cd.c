@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: disilva <disilva@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/01 17:59:35 by disilva           #+#    #+#             */
+/*   Updated: 2024/08/01 18:03:27 by disilva          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <unistd.h>
 #include <dirent.h>
@@ -5,7 +17,7 @@
 #include <string.h>
 #include "builtins.h"
 
-int	update_oldpwd(env_list_t *head)
+int	update_oldpwd(t_env_list *head)
 {
 	char	*current_dir;
 	int		j;
@@ -18,15 +30,16 @@ int	update_oldpwd(env_list_t *head)
 	}
 	while (head->next != NULL)
 	{
-		if (env_cmp(head->content, "OLDPWD") == 1);
-			break;
+		if (env_cmp(head->content, "OLDPWD") == 1)
+			break ;
 		head = head->next;
 	}
 	if (head->next != NULL)
 		free(head->content);
 	else
 	{
-		if (add_node(&(head->next), (ft_strlen("OLDPWD ", 0) + ft_strlen(current_dir, 0))) == 1)
+		if (add_node(&(head->next),
+				(ft_strlen("OLDPWD ", 0) + ft_strlen(current_dir, 0))) == 1)
 			return (1);
 		head = head->next;
 	}
@@ -36,14 +49,14 @@ int	update_oldpwd(env_list_t *head)
 	return (0);
 }
 
-int cd(char **args, env_list_t *head)
+int	cd(char **args, t_env_list *head)
 {
-	int             i;
-	int             j;
+	int				i;
+	int				j;
 	int				k;
-	DIR 			*dir;
-	struct dirent   *entry;
-	char            cwd[4096];
+	DIR				*dir;
+	struct dirent	*entry;
+	char			cwd[4096];
 	char			*str;
 	char			ogdir[4096];
 
@@ -71,14 +84,15 @@ int cd(char **args, env_list_t *head)
 	{
 		while (head->next != NULL)
 		{
-			if (env_cmp(head->content, "OLDPWD") == 1);
-				break;
+			if (env_cmp(head->content, "OLDPWD") == 1)
+				break ;
 			head = head->next;
 		}
 		if (head->next == NULL)
 		{
 			free(str);
-			printf("bash: cd: /path/to/previous/directory: No such file or directory\n");
+			printf("bash: cd: /path/to/prev");
+			printf("ious/directory: No such file or directory\n");
 			return (1);
 		}
 		j = 0;
@@ -146,7 +160,8 @@ int cd(char **args, env_list_t *head)
 				printf ("%s\n", strerror(errno));
 				return (1);
 			}
-			while ((entry = readdir(dir)) != NULL)
+			entry = readdir(dir);
+			while (entry != NULL)
 			{
 				if (ft_strcmp(entry->d_name, args[i]) == 1)
 				{
@@ -156,8 +171,9 @@ int cd(char **args, env_list_t *head)
 						printf ("%s\n", strerror(errno));
 						return (1);
 					}
-					break;
+					break ;
 				}
+				entry = readdir(dir);
 			}
 			closedir(dir);
 			if (entry == NULL)
